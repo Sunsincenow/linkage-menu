@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+	<script>
+		var regin={
+			吉林省:{
+				'长春市':['朝阳区','南关区','宽城区'],
+				'吉林市':['船营区','龙潭区','昌邑区'],
+				'延边朝鲜族自治州':['延吉市','图们市','珲春市']
+			},
+			辽宁省:{
+				'沈阳市':['和平区','沈河区','皇姑区'],
+				'大连市':['中山区','西岗区','沙河口区'],
+				'营口市':['站前区','西市区','鲅鱼圈区']
+			},
+			黑龙江省:{
+				'哈尔滨市':['道里区','南岗区','道外区'],
+				'齐齐哈尔市':['龙沙区','建华区','铁锋区'],
+				'佳木斯市':['前进区','向阳区','东风区']
+			}
+		}
+	</script>
+</head>
+<body>
+	<form action="" name='addr'>
+		<select name='pro' onchange='proChange(this.value)'>
+			<option value="">请选择</option>
+		</select>
+		<select name="cit" onchange='citChange(this.value)'>
+			<option value="">请选择</option>
+		</select>
+		<select name="dis" onchange='finAdd(this.value)'>
+			<option value="" >请选择</option>
+		</select>
+	</form>
+	<div id='fin'>
+		<div>
+			您的地址为：
+		</div>
+	</div>
+	
+
+
+	<script>
+	    var fm=document.forms['addr'];
+	    console.log(fm);
+	    var pro=fm.elements['pro'];
+	    var cit=fm.elements['cit'];
+	    var dis=fm.elements['dis'];
+
+
+	    for(ele in regin){//循环对象，把省份添加到第一栏
+	    	console.log(ele);
+	    	let op=new Option(ele);
+	    	pro.appendChild(op);
+	    }
+	    var proName='';//记录省份
+		function proChange (arg) {
+			for (i in regin[arg]) {
+				let op=new Option(i);
+				cit.appendChild(op);
+			};
+			proName=arg;
+			console.log(proName);
+		}
+
+		var citName='';//记录城市
+		function citChange(arg){
+			for (i in regin[proName][arg]) {
+				let op=new Option(regin[proName][arg][i]);
+				dis.appendChild(op);
+			};
+			citName=arg;
+			console.log(citName);
+		}
+		
+		var disName='';//记录区
+		function finAdd(arg){//输出最终地址
+			disName=arg;
+			var a=document.createElement('div');
+		    a.innerHTML=proName+citName+disName;
+		    fin.appendChild(a);
+		}
+		
+
+	</script>
+</body>
+</html>
